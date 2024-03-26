@@ -1,7 +1,12 @@
 import threading
+import time
 from ultrasonic import UltrasonicSensor
+from apis import ApiRequest
 
-class UltraSonicListener(object):
+
+class UltraSonicListener():
+    
+    distance_threshold = 20
     
     def get_distance(self):
         ultrasonicSensor = UltrasonicSensor(27, 22)
@@ -10,24 +15,30 @@ class UltraSonicListener(object):
         available = 0
 
         while True:
-            print("calledultra")
+            
             distance = ultrasonicSensor.get_distance()
 
 
-            if distance <= 100 and available == 1:
+            if distance <= self.distance_threshold:
+                available = 0
+                print("current_thread: " + threading.current_thread().name + ". slot marked as unavailable. distance in cm = " + str(distance))
                 
-
-                api.setAvailability(0)
-                available =0
-                print("slot marked as unavailable. distance in cm = " + str(distance))
+            elif distance > self.distance_threshold and available == 0:
                 
-            elif distance > 100 and available == 0:
                 api.setAvailability(1)
-                available =1
-                print("slot marked as available distance in cm = " + str(distance))
+                available = 1
+                print("current_thread: " + threading.current_thread().name + ". slot marked as available distance in cm = " + str(distance))
+                
+            else:
+                print("current_thread: " + threading.current_thread().name + " else " + str(distance) + " : " + str(available))
+                
+                
+                
+            time.sleep(10)
                 
     def listen(self):
-        t1 = threading.Thread(target=get_distance)
+        
+        t1 = threading.Thread(target=self.get_distance)
         t1.start()
             
                 

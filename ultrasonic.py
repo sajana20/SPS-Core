@@ -1,13 +1,11 @@
 import RPi.GPIO as GPIO
 import time
-from apis import ApiRequest 
 
 class UltrasonicSensor(object):
     def __init__(self, trig_pin, echo_pin):
         
         self.trig = trig_pin
         self.echo = echo_pin
-        
         
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -19,9 +17,6 @@ class UltrasonicSensor(object):
 
 
     def get_distance(self):
-        
-
-
         time.sleep(2)
         GPIO.output(self.trig, True)
         time.sleep(0.00001)
