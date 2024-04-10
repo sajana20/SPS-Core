@@ -16,7 +16,6 @@ def index():
     return render_template('index.html')
 
 def gen(camera):
-    #get camera frame
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
@@ -57,7 +56,6 @@ def download(file_name):
 
 
 if __name__ == '__main__':
-    print('start')
 
     UltraSonicListener().listen()
     PIRListener().listen()

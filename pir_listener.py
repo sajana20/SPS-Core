@@ -18,8 +18,6 @@ class PIRListener(object):
             print("current_thread: " + threading.current_thread().name+ " Motion Detected")
             api.sendPushNotification()
             availability = api.checkAvailability()
-            print("availabilityyy")
-            print(availability)
             if availability == 0:
                 api.startRecording()
             pir.wait_for_no_motion()

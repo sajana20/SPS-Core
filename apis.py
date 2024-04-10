@@ -38,7 +38,7 @@ class ApiRequest():
     def sendPushNotification(self):
         
         api_url = os.getenv('API_URL')+"/pushNotification"
-        data = {"slot_id": 4,"title": "Security Alert","message": "Please keep an eye on the live camera feed; as there appears to be suspicious activity occurring around your vehicle at the moment."}
+        data = {"slot_id": os.getenv('SLOT_ID'),"title": "Security Alert","message": "Please keep an eye on the live camera feed; as there appears to be suspicious activity occurring around your vehicle at the moment."}
         response = requests.post(api_url, data=data)
     
        
